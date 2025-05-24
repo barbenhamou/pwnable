@@ -7,6 +7,8 @@
 #define WHITE 1
 #define BLACK 0
 
+// b;b; -> admin
+
 void init_buffering() {
     setvbuf(stdin, NULL, 2, 0);
     setvbuf(stdout, NULL, 2, 0);
